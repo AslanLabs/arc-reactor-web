@@ -10,25 +10,6 @@ import { LoginPage } from './components/auth/LoginPage'
 import { AppsLayout } from './components/apps/AppsLayout'
 import { AppsPage } from './components/apps/AppsPage'
 import { ErrorReportPage } from './components/apps/ErrorReportPage'
-import { AdminLayout } from './components/admin/AdminLayout'
-import { DashboardPage } from './components/admin/pages/DashboardPage'
-import { McpServersPage } from './components/admin/pages/McpServersPage'
-import { PersonasPage } from './components/admin/pages/PersonasPage'
-import { IntentsPage } from './components/admin/pages/IntentsPage'
-import { OutputGuardPage } from './components/admin/pages/OutputGuardPage'
-import { ToolPolicyPage } from './components/admin/pages/ToolPolicyPage'
-import { SchedulerPage } from './components/admin/pages/SchedulerPage'
-import { ClippingCategoriesPage } from './components/admin/pages/ClippingCategoriesPage'
-import { ClippingSourcesPage } from './components/admin/pages/ClippingSourcesPage'
-import { ClippingPersonasPage } from './components/admin/pages/ClippingPersonasPage'
-import { ClippingStatsPage } from './components/admin/pages/ClippingStatsPage'
-import { AuditLogsPage } from './components/admin/pages/AuditLogsPage'
-import { UserManagementPage } from './components/admin/pages/UserManagementPage'
-import { PromptTemplatesPage } from './components/admin/pages/PromptTemplatesPage'
-import { RagIngestionPage } from './components/admin/pages/RagIngestionPage'
-import { FeedbackPage } from './components/admin/pages/FeedbackPage'
-import { SessionsPage } from './components/admin/pages/SessionsPage'
-import { ApprovalWorkflowPage } from './components/admin/pages/ApprovalWorkflowPage'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 import './App.css'
 
@@ -118,26 +99,6 @@ export default function App() {
       <Route path="/apps" element={<AppsLayout />}>
         <Route index element={<AppsPage />} />
         <Route path="error-report" element={<ErrorReportPage />} />
-      </Route>
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="mcp-servers" element={<McpServersPage />} />
-        <Route path="personas" element={<PersonasPage />} />
-        <Route path="intents" element={<IntentsPage />} />
-        <Route path="output-guard" element={<OutputGuardPage />} />
-        <Route path="tool-policy" element={<ToolPolicyPage />} />
-        <Route path="scheduler" element={<SchedulerPage />} />
-        <Route path="clipping/categories" element={<ClippingCategoriesPage />} />
-        <Route path="clipping/sources" element={<ClippingSourcesPage />} />
-        <Route path="clipping/personas" element={<ClippingPersonasPage />} />
-        <Route path="clipping/stats" element={<ClippingStatsPage />} />
-        <Route path="audit-logs" element={<AuditLogsPage />} />
-        <Route path="users" element={<UserManagementPage />} />
-        <Route path="prompt-templates" element={<PromptTemplatesPage />} />
-        <Route path="rag" element={<RagIngestionPage />} />
-        <Route path="feedback" element={<FeedbackPage />} />
-        <Route path="sessions" element={<SessionsPage />} />
-        <Route path="approvals" element={<ApprovalWorkflowPage />} />
       </Route>
       <Route path="*" element={<ChatPage />} />
     </Routes>

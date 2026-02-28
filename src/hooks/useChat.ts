@@ -143,10 +143,7 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
       metadata: { sessionId },
       ...(settings.model ? { model: settings.model } : {}),
       ...(settings.selectedPersonaId ? { personaId: settings.selectedPersonaId } : {}),
-      ...(!settings.selectedPersonaId && settings.selectedPromptTemplateId
-        ? { promptTemplateId: settings.selectedPromptTemplateId }
-        : {}),
-      ...(!settings.selectedPersonaId && !settings.selectedPromptTemplateId && settings.systemPrompt
+      ...(!settings.selectedPersonaId && settings.systemPrompt
         ? { systemPrompt: settings.systemPrompt }
         : {}),
       ...(settings.responseFormat !== 'TEXT' ? { responseFormat: settings.responseFormat } : {}),
@@ -157,8 +154,7 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
         // Multipart upload (non-streaming)
         const content = await sendChatMultipart(text.trim(), files, {
           model: settings.model ?? undefined,
-          systemPrompt: !settings.selectedPersonaId && !settings.selectedPromptTemplateId
-            ? settings.systemPrompt || undefined : undefined,
+          systemPrompt: !settings.selectedPersonaId ? settings.systemPrompt || undefined : undefined,
           personaId: settings.selectedPersonaId ?? undefined,
           userId,
         })

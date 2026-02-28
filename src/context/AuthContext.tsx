@@ -11,7 +11,6 @@ export function useAuth() {
   return {
     user: store.user,
     isAuthenticated: !!store.user,
-    isAdmin: store.user?.role === 'ADMIN',
     isAuthRequired: store.isAuthRequired,
     isLoading: store.isLoading,
     error: store.error,

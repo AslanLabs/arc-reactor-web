@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useChatContext } from '../../context/ChatContext'
 import { getPersona } from '../../services/personas'
-import { getTemplate } from '../../services/prompts'
 import './ActiveConfigIndicator.css'
 
 interface ActiveConfigIndicatorProps {
@@ -25,13 +24,6 @@ export function ActiveConfigIndicator({ onOpenSettings }: ActiveConfigIndicatorP
         } catch {
           if (!cancelled) setLabel(t('chat.activePersona', { name: '...' }))
         }
-      } else if (settings.selectedPromptTemplateId) {
-        try {
-          const template = await getTemplate(settings.selectedPromptTemplateId)
-          if (!cancelled) setLabel(t('chat.activeTemplate', { name: template.name }))
-        } catch {
-          if (!cancelled) setLabel(t('chat.activeTemplate', { name: '...' }))
-        }
       } else if (settings.systemPrompt.trim()) {
         if (!cancelled) setLabel(t('chat.customPromptActive'))
       } else {
@@ -41,7 +33,7 @@ export function ActiveConfigIndicator({ onOpenSettings }: ActiveConfigIndicatorP
 
     resolve()
     return () => { cancelled = true }
-  }, [settings.selectedPersonaId, settings.selectedPromptTemplateId, settings.systemPrompt, t])
+  }, [settings.selectedPersonaId, settings.systemPrompt, t])
 
   if (!label) return null
 
