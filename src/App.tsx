@@ -42,6 +42,7 @@ function ChatLayout({
   const shortcuts = {
     'n': () => createSession(),
     ',': onToggleSettings,
+    'l': () => createSession(), // Ctrl+L: new chat (clear)
   }
 
   useKeyboardShortcuts(shortcuts)

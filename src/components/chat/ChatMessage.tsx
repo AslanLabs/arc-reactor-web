@@ -10,10 +10,12 @@ interface ChatMessageProps {
   isLoading: boolean
   showMetadata: boolean
   onRetry?: () => void
+  onRegenerate?: () => void
+  onDelete?: () => void
 }
 
 export function ChatMessage({
-  message, isLast, isLoading, showMetadata, onRetry,
+  message, isLast, isLoading, showMetadata, onRetry, onRegenerate, onDelete,
 }: ChatMessageProps) {
   const showPlaceholder = isLoading && isLast && message.role === 'assistant' && !message.content
 
@@ -58,10 +60,13 @@ export function ChatMessage({
             {formatDuration(message.durationMs)}
           </div>
         )}
-        {message.role === 'assistant' && message.content && !showPlaceholder && (
+        {message.content && !showPlaceholder && (
           <MessageActions
             content={message.content}
+            role={message.role}
             onRetry={onRetry}
+            onRegenerate={onRegenerate}
+            onDelete={onDelete}
           />
         )}
       </div>

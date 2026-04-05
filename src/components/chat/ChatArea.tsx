@@ -13,7 +13,7 @@ interface ChatAreaProps {
 }
 
 export function ChatArea({ onOpenSettings }: ChatAreaProps) {
-  const { messages, isLoading, activeTool, sendMessage, stopGeneration, retryLastMessage, settings } = useChatContext()
+  const { messages, isLoading, activeTool, sendMessage, stopGeneration, retryLastMessage, regenerateMessage, deleteMessage, settings } = useChatContext()
   const messagesRef = useRef<HTMLElement>(null)
   const [suggestion, setSuggestion] = useState<string | undefined>()
 
@@ -45,7 +45,9 @@ export function ChatArea({ onOpenSettings }: ChatAreaProps) {
             isLast={i === messages.length - 1}
             isLoading={isLoading}
             showMetadata={settings.showMetadata}
-            onRetry={msg.role === 'assistant' ? retryLastMessage : undefined}
+            onRetry={msg.role === 'assistant' && i === messages.length - 1 ? retryLastMessage : undefined}
+            onRegenerate={msg.role === 'assistant' ? () => regenerateMessage(msg.id) : undefined}
+            onDelete={() => deleteMessage(msg.id)}
           />
         ))}
         {activeTool && <ToolIndicator toolName={activeTool} />}

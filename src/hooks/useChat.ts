@@ -96,21 +96,28 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
   }
 
   const sendMessage = async (text: string, files?: File[]) => {
+    return sendMessageInternal(text, files, false)
+  }
+
+  const sendMessageInternal = async (text: string, files?: File[], skipUserMsg = false) => {
     if (!text.trim() || isLoading) return
 
-    // Build attachment metadata for display
-    const attachments = files?.map(f => ({
-      name: f.name,
-      type: f.type,
-      previewUrl: f.type.startsWith('image/') ? URL.createObjectURL(f) : undefined,
-    }))
+    if (!skipUserMsg) {
+      // Build attachment metadata for display
+      const attachments = files?.map(f => ({
+        name: f.name,
+        type: f.type,
+        previewUrl: f.type.startsWith('image/') ? URL.createObjectURL(f) : undefined,
+      }))
 
-    const userMsg: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: 'user',
-      content: text.trim(),
-      timestamp: Date.now(),
-      ...(attachments && attachments.length > 0 ? { attachments } : {}),
+      const userMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: 'user',
+        content: text.trim(),
+        timestamp: Date.now(),
+        ...(attachments && attachments.length > 0 ? { attachments } : {}),
+      }
+      setMessages(prev => [...prev, userMsg])
     }
 
     const assistantMsg: ChatMessage = {
@@ -120,7 +127,7 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
       timestamp: Date.now(),
     }
 
-    setMessages(prev => [...prev, userMsg, assistantMsg])
+    setMessages(prev => [...prev, assistantMsg])
     setIsLoading(true)
     setActiveTool(null)
 
@@ -262,6 +269,24 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
     await sendMessage(lastUserMsg.content)
   }
 
+  const regenerateMessage = async (messageId: string) => {
+    // Find the assistant message and its preceding user message
+    const idx = messages.findIndex(m => m.id === messageId)
+    if (idx < 0 || messages[idx].role !== 'assistant') return
+    const userMsg = messages[idx - 1]
+    if (!userMsg || userMsg.role !== 'user') return
+
+    // Remove just the assistant message, keep user message
+    setMessages(prev => prev.filter(m => m.id !== messageId))
+    await new Promise(r => setTimeout(r, 0))
+    // Re-send but skip adding user message (it's already there)
+    await sendMessageInternal(userMsg.content, undefined, true)
+  }
+
+  const deleteMessage = (messageId: string) => {
+    setMessages(prev => prev.filter(m => m.id !== messageId))
+  }
+
   return {
     messages,
     isLoading,
@@ -269,5 +294,7 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
     sendMessage,
     stopGeneration,
     retryLastMessage,
+    regenerateMessage,
+    deleteMessage,
   }
 }

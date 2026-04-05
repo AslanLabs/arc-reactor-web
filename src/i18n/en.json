@@ -64,10 +64,18 @@
   "actions": {
     "copy": "Copy",
     "copied": "Copied",
-    "retry": "Retry"
+    "retry": "Retry",
+    "regenerate": "Regenerate",
+    "delete": "Delete"
   },
   "sidebar": {
     "newChat": "New chat",
+    "search": "Search conversations...",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week",
+    "older": "Older",
+    "noResults": "No conversations found",
     "deleteConfirm": "Delete this conversation?",
     "deleteLabel": "Delete conversation",
     "export": "Export conversation"

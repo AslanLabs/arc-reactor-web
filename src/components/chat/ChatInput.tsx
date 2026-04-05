@@ -5,6 +5,8 @@ import './ChatInput.css'
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 const ACCEPTED_TYPES = 'image/*,audio/*,video/*'
 
+const DRAFT_KEY = 'arc-reactor-draft'
+
 interface ChatInputProps {
   onSend: (text: string, files?: File[]) => void
   onStop: () => void
@@ -14,7 +16,10 @@ interface ChatInputProps {
 
 export function ChatInput({ onSend, onStop, disabled, initialValue }: ChatInputProps) {
   const { t } = useTranslation()
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState(() => {
+    if (initialValue) return initialValue
+    try { return sessionStorage.getItem(DRAFT_KEY) || '' } catch { return '' }
+  })
   const [files, setFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const inputRef = useRef<HTMLTextAreaElement>(null)
@@ -76,12 +81,18 @@ export function ChatInput({ onSend, onStop, disabled, initialValue }: ChatInputP
     setPreviews([])
   }
 
+  const updateInput = (value: string) => {
+    setInput(value)
+    try { sessionStorage.setItem(DRAFT_KEY, value) } catch { /* quota exceeded */ }
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const text = input.trim()
     if (!text || disabled) return
     onSend(text, files.length > 0 ? files : undefined)
     setInput('')
+    try { sessionStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
     clearFiles()
   }
 
@@ -147,7 +158,7 @@ export function ChatInput({ onSend, onStop, disabled, initialValue }: ChatInputP
         <textarea
           ref={inputRef}
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={e => updateInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={t('chat.placeholder')}
           rows={1}

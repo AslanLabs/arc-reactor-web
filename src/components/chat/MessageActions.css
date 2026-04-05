@@ -32,3 +32,8 @@
   color: var(--success);
   border-color: var(--success);
 }
+
+.MessageActions-btn--delete:hover {
+  color: var(--error);
+  border-color: var(--error);
+}

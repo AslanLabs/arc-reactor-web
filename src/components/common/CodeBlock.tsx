@@ -41,6 +41,7 @@ export function CodeBlock({ language, children }: CodeBlockProps) {
         style={oneDark}
         language={language || 'text'}
         PreTag="div"
+        showLineNumbers
         customStyle={{
           margin: 0,
           borderRadius: '0 0 8px 8px',
