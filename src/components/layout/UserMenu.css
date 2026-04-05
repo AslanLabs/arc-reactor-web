@@ -6,15 +6,15 @@
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 50%;
   padding: 0;
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: opacity 0.15s;
 }
 
 .UserMenu-trigger:hover {
-  border-color: var(--accent);
+  opacity: 0.8;
 }
 
 .UserMenu-avatar {

@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 16px 20px;
-  border-top: 1px solid var(--border);
+  padding: 12px 20px 16px;
   background: var(--bg-primary);
 }
 
@@ -17,19 +16,18 @@
   flex: 1;
   resize: none;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-size: 0.95rem;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 0.94rem;
   font-family: inherit;
   background: var(--bg-secondary);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s;
 }
 
 .ChatInput textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .ChatInput textarea::placeholder {
@@ -39,13 +37,13 @@
 .ChatInput-inputRow button {
   padding: 10px 20px;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   background: var(--accent);
   color: white;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.15s, transform 0.1s;
 }
 
 .ChatInput-inputRow button:hover:not(:disabled) {
@@ -57,7 +55,7 @@
 }
 
 .ChatInput-inputRow button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -70,17 +68,15 @@
   min-width: 40px;
   padding: 0 !important;
   border-radius: 50% !important;
-  background: var(--bg-secondary) !important;
+  background: transparent !important;
   color: var(--text-secondary) !important;
-  border: 1px solid var(--border) !important;
+  border: none !important;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.15s;
 }
 
 .ChatInput-attachBtn:hover:not(:disabled) {
-  color: var(--accent) !important;
-  border-color: var(--accent) !important;
-  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
 }
 
 .ChatInput-stopBtn {
@@ -89,21 +85,17 @@
   gap: 6px;
   padding: 10px 20px;
   border: none;
-  border-radius: 12px;
-  background: #ef4444 !important;
+  border-radius: 16px;
+  background: var(--error) !important;
   color: white;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: opacity 0.15s;
 }
 
 .ChatInput-stopBtn:hover {
-  background: #dc2626 !important;
-}
-
-.ChatInput-stopBtn:active {
-  transform: scale(0.97);
+  opacity: 0.85;
 }
 
 /* File previews */
@@ -119,7 +111,7 @@
   width: 64px;
   height: 64px;
   min-width: 64px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--bg-secondary);
@@ -169,22 +161,14 @@
 
 @media (max-width: 767px) {
   .ChatInput {
-    padding: 12px;
-    gap: 6px;
+    padding: 10px 12px 14px;
   }
 
   .ChatInput textarea {
-    padding: 8px 12px;
+    padding: 10px 14px;
   }
 
   .ChatInput-inputRow button {
     padding: 8px 14px;
-    font-size: 0.9rem;
-  }
-
-  .ChatInput-preview {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
   }
 }
