@@ -34,12 +34,6 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'syntax-highlight': ['react-syntax-highlighter'],
-        },
-      },
-    },
+    chunkSizeWarningLimit: 600,
   },
 })

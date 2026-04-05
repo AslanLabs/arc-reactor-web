@@ -21,7 +21,7 @@
 
 .CodeBlock-copyBtn {
   background: none;
-  border: 1px solid var(--border);
+  border: none;
   border-radius: 4px;
   color: var(--text-secondary);
   font-size: 0.72rem;
@@ -31,5 +31,16 @@
 }
 
 .CodeBlock-copyBtn:hover {
+  color: var(--text-primary);
+}
+
+.CodeBlock-fallback {
+  margin: 0;
+  padding: 16px;
+  background: var(--code-bg);
+  border-radius: 0 0 8px 8px;
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  overflow-x: auto;
   color: var(--text-primary);
 }

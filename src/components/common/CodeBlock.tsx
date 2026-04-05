@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { useState, lazy, Suspense } from 'react'
 import './CodeBlock.css'
+
+const LazyHighlighter = lazy(() =>
+  import('./CodeBlockHighlighter')
+)
 
 interface CodeBlockProps {
   language?: string
@@ -37,19 +39,9 @@ export function CodeBlock({ language, children }: CodeBlockProps) {
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <SyntaxHighlighter
-        style={oneDark}
-        language={language || 'text'}
-        PreTag="div"
-        showLineNumbers
-        customStyle={{
-          margin: 0,
-          borderRadius: '0 0 8px 8px',
-          fontSize: '0.85rem',
-        }}
-      >
-        {children}
-      </SyntaxHighlighter>
+      <Suspense fallback={<pre className="CodeBlock-fallback">{children}</pre>}>
+        <LazyHighlighter language={language}>{children}</LazyHighlighter>
+      </Suspense>
     </div>
   )
 }

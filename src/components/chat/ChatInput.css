@@ -15,6 +15,7 @@
 .ChatInput textarea {
   flex: 1;
   resize: none;
+  overflow-y: hidden;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 12px 16px;
@@ -24,6 +25,7 @@
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.2s;
+  max-height: 200px;
 }
 
 .ChatInput textarea:focus {
