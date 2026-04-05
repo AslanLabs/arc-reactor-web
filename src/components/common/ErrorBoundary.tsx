@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import type { ReactNode, ErrorInfo } from 'react'
+import './ErrorBoundary.css'
 
 interface Props {
   children: ReactNode
@@ -31,74 +32,22 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          padding: '24px',
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          background: '#0f172a',
-          color: '#e2e8f0',
-        }}>
-          <div style={{
-            maxWidth: '480px',
-            textAlign: 'center',
-          }}>
-            <h1 style={{ fontSize: '1.5rem', marginBottom: '12px' }}>
-              Something went wrong
-            </h1>
-            <p style={{
-              color: '#94a3b8',
-              marginBottom: '24px',
-              lineHeight: 1.6,
-            }}>
+        <div className="ErrorBoundary">
+          <div className="ErrorBoundary-card">
+            <h1 className="ErrorBoundary-title">Something went wrong</h1>
+            <p className="ErrorBoundary-description">
               An unexpected error occurred. Try refreshing the page or click the button below to recover.
             </p>
             {this.state.error && (
-              <pre style={{
-                background: '#1e293b',
-                padding: '12px 16px',
-                borderRadius: '8px',
-                fontSize: '0.8rem',
-                color: '#f87171',
-                textAlign: 'left',
-                overflow: 'auto',
-                maxHeight: '120px',
-                marginBottom: '24px',
-              }}>
+              <pre className="ErrorBoundary-trace">
                 {this.state.error.message}
               </pre>
             )}
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-              <button
-                onClick={this.handleReset}
-                style={{
-                  padding: '10px 24px',
-                  border: 'none',
-                  borderRadius: '8px',
-                  background: '#3b82f6',
-                  color: 'white',
-                  fontSize: '0.95rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                }}
-              >
+            <div className="ErrorBoundary-actions">
+              <button className="ErrorBoundary-retryBtn" onClick={this.handleReset}>
                 Try again
               </button>
-              <button
-                onClick={() => window.location.reload()}
-                style={{
-                  padding: '10px 24px',
-                  border: '1px solid #334155',
-                  borderRadius: '8px',
-                  background: 'transparent',
-                  color: '#94a3b8',
-                  fontSize: '0.95rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <button className="ErrorBoundary-reloadBtn" onClick={() => window.location.reload()}>
                 Reload page
               </button>
             </div>

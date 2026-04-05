@@ -14,6 +14,7 @@ interface AuthState {
 interface AuthActions {
   initialize: () => Promise<void>
   login: (email: string, password: string) => Promise<boolean>
+  loginWithIam: (email: string, password: string) => Promise<boolean>
   register: (email: string, password: string, name: string) => Promise<boolean>
   logout: () => void
   clearError: () => void
@@ -49,6 +50,25 @@ export const useAuthStore = create<AuthState & AuthActions>()((set) => ({
     set({ error: null, isLoading: true })
     try {
       const response = await authApi.login({ email, password })
+      if (response.error || !response.token || !response.user) {
+        set({ error: response.error || i18n.t('auth.loginFailed') })
+        return false
+      }
+      setAuthToken(response.token)
+      set({ user: response.user })
+      return true
+    } catch {
+      set({ error: i18n.t('auth.serverError') })
+      return false
+    } finally {
+      set({ isLoading: false })
+    }
+  },
+
+  loginWithIam: async (email, password) => {
+    set({ error: null, isLoading: true })
+    try {
+      const response = await authApi.loginWithIam(email, password)
       if (response.error || !response.token || !response.user) {
         set({ error: response.error || i18n.t('auth.loginFailed') })
         return false

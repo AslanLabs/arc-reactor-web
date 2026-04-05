@@ -160,7 +160,9 @@
     "registerFailed": "회원가입에 실패했습니다.",
     "serverError": "서버에 연결할 수 없습니다.",
     "processing": "처리 중...",
-    "submit": "가입하기"
+    "submit": "가입하기",
+    "demoLogin": "데모 로그인",
+    "iamLogin": "IAM 로그인"
   },
   "mcp": {
     "loading": "불러오는 중...",

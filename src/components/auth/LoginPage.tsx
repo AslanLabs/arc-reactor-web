@@ -8,7 +8,7 @@ type Mode = 'login' | 'register'
 
 export function LoginPage() {
   const { t } = useTranslation()
-  const { login, register, error, clearError, isLoading } = useAuth()
+  const { login, loginWithIam, register, error, clearError, isLoading } = useAuth()
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -29,6 +29,10 @@ export function LoginPage() {
     } else {
       await register(email, password, name)
     }
+  }
+
+  const handleDemoLogin = () => {
+    login('demo@arc-reactor.io', 'demo1234')
   }
 
   const isValid = mode === 'login'
@@ -95,6 +99,29 @@ export function LoginPage() {
             {isLoading ? t('auth.processing') : mode === 'login' ? t('auth.login') : t('auth.submit')}
           </button>
         </form>
+
+        <div className="LoginPage-divider">
+          <span>or</span>
+        </div>
+
+        <div className="LoginPage-quickActions">
+          <button
+            className="LoginPage-demoBtn"
+            onClick={handleDemoLogin}
+            disabled={isLoading}
+          >
+            {t('auth.demoLogin')}
+          </button>
+          <button
+            className="LoginPage-iamBtn"
+            onClick={() => {
+              if (email.trim() && password.trim()) loginWithIam(email, password)
+            }}
+            disabled={!email.trim() || !password.trim() || isLoading}
+          >
+            {t('auth.iamLogin')}
+          </button>
+        </div>
       </div>
     </div>
   )

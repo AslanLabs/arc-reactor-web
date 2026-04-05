@@ -90,10 +90,10 @@
 
 .LoginPage-error {
   padding: 10px 12px;
-  background: #e53e3e15;
-  border: 1px solid #e53e3e40;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
   border-radius: 8px;
-  color: #e53e3e;
+  color: var(--error);
   font-size: 0.82rem;
   text-align: left;
 }
@@ -117,6 +117,56 @@
 }
 
 .LoginPage-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.LoginPage-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 16px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.LoginPage-divider::before,
+.LoginPage-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.LoginPage-quickActions {
+  display: flex;
+  gap: 8px;
+}
+
+.LoginPage-demoBtn,
+.LoginPage-iamBtn {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.LoginPage-demoBtn:hover:not(:disabled),
+.LoginPage-iamBtn:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.LoginPage-demoBtn:disabled,
+.LoginPage-iamBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

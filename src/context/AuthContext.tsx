@@ -15,6 +15,7 @@ export function useAuth() {
     isLoading: store.isLoading,
     error: store.error,
     login: store.login,
+    loginWithIam: store.loginWithIam,
     register: store.register,
     logout: store.logout,
     clearError: store.clearError,

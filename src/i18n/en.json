@@ -160,7 +160,9 @@
     "registerFailed": "Registration failed.",
     "serverError": "Cannot connect to server.",
     "processing": "Processing...",
-    "submit": "Sign up"
+    "submit": "Sign up",
+    "demoLogin": "Demo Login",
+    "iamLogin": "IAM Login"
   },
   "mcp": {
     "loading": "Loading...",

@@ -22,6 +22,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/clipping-api/, '/api'),
       },
+      '/iam-api': {
+        target: 'http://localhost:9090',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/iam-api/, '/api'),
+      },
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,

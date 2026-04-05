@@ -1,4 +1,4 @@
-import ky, { type KyInstance, HTTPError } from 'ky'
+import ky, { HTTPError } from 'ky'
 import { getAuthToken, removeAuthToken, setOnUnauthorized } from '../utils/api-client'
 
 // Re-export HTTPError so callers can catch it without importing ky directly
@@ -24,7 +24,7 @@ export function isHttpError(error: unknown, status: number): boolean {
  * Note: SSE streaming (streamChat) continues to use native fetch because
  * ky does not expose the raw ReadableStream required for SSE parsing.
  */
-export const api: KyInstance = ky.create({
+export const api = ky.create({
   prefixUrl: '/api',
   timeout: 30_000,
   retry: {
@@ -55,31 +55,6 @@ export const api: KyInstance = ky.create({
     beforeError: [
       (error) => {
         // Attach a readable message to every HTTPError
-        const { response } = error
-        if (response) {
-          error.message = `HTTP ${response.status} ${response.url}`
-        }
-        return error
-      },
-    ],
-  },
-})
-
-/**
- * ky instance for the Clipping API (/clipping-api/*).
- * Does not inject JWT — the clipping service uses its own auth model.
- */
-export const clippingApi: KyInstance = ky.create({
-  prefixUrl: '/clipping-api/admin',
-  timeout: 30_000,
-  retry: {
-    limit: 2,
-    methods: ['get'],
-    statusCodes: [408, 429, 502, 503, 504],
-  },
-  hooks: {
-    beforeError: [
-      (error) => {
         const { response } = error
         if (response) {
           error.message = `HTTP ${response.status} ${response.url}`
