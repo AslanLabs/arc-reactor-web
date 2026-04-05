@@ -55,9 +55,10 @@
     "scrollToBottom": "맨 아래로 이동"
   },
   "suggestions": {
-    "hello": "안녕하세요",
-    "time": "지금 몇 시야?",
-    "math": "3 + 5는 얼마야?"
+    "explain": "이게 어떻게 동작하는지 설명해줘",
+    "code": "Python 스크립트 작성해줘",
+    "search": "최근 뉴스 검색해줘",
+    "hello": "안녕! 뭘 할 수 있어?"
   },
   "tool": {
     "using": "도구 사용 중: {{name}}"
@@ -82,6 +83,8 @@
     "thisWeek": "이번 주",
     "older": "이전",
     "noResults": "대화를 찾을 수 없습니다",
+    "clearAll": "모든 대화 삭제",
+    "clearAllConfirm": "다른 모든 대화를 삭제하시겠습니까? 현재 대화는 유지됩니다.",
     "deleteConfirm": "이 대화를 삭제하시겠습니까?",
     "deleteLabel": "대화 삭제",
     "export": "대화 내보내기"

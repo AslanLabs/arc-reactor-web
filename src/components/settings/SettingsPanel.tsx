@@ -14,7 +14,7 @@ interface SettingsPanelProps {
 export function SettingsPanel({ open, onClose }: SettingsPanelProps) {
   const { t, i18n } = useTranslation()
   const { settings, updateSettings, resetSettings } = useChatContext()
-  const { isAuthenticated, user, logout } = useAuth()
+  const { user } = useAuth()
 
   useEffect(() => {
     if (!open) return
@@ -153,12 +153,9 @@ export function SettingsPanel({ open, onClose }: SettingsPanelProps) {
         </div>
 
         <div className="SettingsPanel-footer">
-          {isAuthenticated && (
+          {user && (
             <div className="SettingsPanel-userInfo">
-              <span className="SettingsPanel-userName">{user?.name} ({user?.email})</span>
-              <button className="SettingsPanel-logoutBtn" onClick={logout}>
-                {t('settings.logout')}
-              </button>
+              <span className="SettingsPanel-userName">{user.name} ({user.email})</span>
             </div>
           )}
           <button className="SettingsPanel-resetBtn" onClick={resetSettings}>

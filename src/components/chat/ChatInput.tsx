@@ -94,6 +94,7 @@ export function ChatInput({ onSend, onStop, disabled, initialValue }: ChatInputP
     setInput('')
     try { sessionStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
     clearFiles()
+    if (inputRef.current) inputRef.current.style.height = 'auto'
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -158,7 +159,12 @@ export function ChatInput({ onSend, onStop, disabled, initialValue }: ChatInputP
         <textarea
           ref={inputRef}
           value={input}
-          onChange={e => updateInput(e.target.value)}
+          onChange={e => {
+            updateInput(e.target.value)
+            // Auto-resize
+            e.target.style.height = 'auto'
+            e.target.style.height = Math.min(e.target.scrollHeight, 200) + 'px'
+          }}
           onKeyDown={handleKeyDown}
           placeholder={t('chat.placeholder')}
           rows={1}

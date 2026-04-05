@@ -55,9 +55,10 @@
     "scrollToBottom": "Scroll to bottom"
   },
   "suggestions": {
-    "hello": "Hello!",
-    "time": "What time is it?",
-    "math": "What is 3 + 5?"
+    "explain": "Explain how this works",
+    "code": "Write a Python script",
+    "search": "Search for recent news",
+    "hello": "Hello! What can you do?"
   },
   "tool": {
     "using": "Using tool: {{name}}"
@@ -82,6 +83,8 @@
     "thisWeek": "This Week",
     "older": "Older",
     "noResults": "No conversations found",
+    "clearAll": "Clear all conversations",
+    "clearAllConfirm": "Delete all other conversations? Current chat will be kept.",
     "deleteConfirm": "Delete this conversation?",
     "deleteLabel": "Delete conversation",
     "export": "Export conversation"

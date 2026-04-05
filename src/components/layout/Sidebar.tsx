@@ -218,6 +218,20 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <div className="Sidebar-empty">{t('sidebar.noResults')}</div>
           )}
         </nav>
+        {sessions.length > 1 && (
+          <div className="Sidebar-clearAll">
+            <button
+              className="Sidebar-clearAllBtn"
+              onClick={() => {
+                if (confirm(t('sidebar.clearAllConfirm'))) {
+                  sessions.forEach(s => { if (s.id !== activeSessionId) deleteSession(s.id) })
+                }
+              }}
+            >
+              {t('sidebar.clearAll')}
+            </button>
+          </div>
+        )}
         {user && (
           <div className="Sidebar-footer">
             <div className="Sidebar-user">

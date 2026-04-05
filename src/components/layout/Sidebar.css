@@ -214,6 +214,29 @@
   border-top: 1px solid var(--border);
 }
 
+/* Clear all */
+.Sidebar-clearAll {
+  padding: 4px 12px 8px;
+}
+
+.Sidebar-clearAllBtn {
+  width: 100%;
+  padding: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.Sidebar-clearAllBtn:hover {
+  color: var(--error);
+  border-color: var(--error);
+}
+
 /* Footer: user profile */
 .Sidebar-footer {
   border-top: 1px solid var(--border);
