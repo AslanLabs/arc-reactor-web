@@ -28,23 +28,6 @@
   background: var(--bg-hover);
 }
 
-/* User message (accent background): icons must be white */
-.ChatMessage--user .MessageActions-btn {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.ChatMessage--user .MessageActions-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.ChatMessage--user .MessageActions-btn--copied {
-  color: #fff;
-}
-
-.ChatMessage--user .MessageActions-btn--delete:hover {
-  color: #fca5a5;
-}
 
 .MessageActions-btn:active {
   transform: scale(0.9);

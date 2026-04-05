@@ -34,8 +34,8 @@
 }
 
 .ChatMessage--user .ChatMessage-bubble {
-  background: var(--accent);
-  color: #fff;
+  background: var(--bg-message-user);
+  color: var(--text-primary);
   border-bottom-right-radius: 6px;
 }
 
