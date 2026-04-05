@@ -51,7 +51,8 @@
     "newConversation": "새 대화",
     "activePersona": "페르소나: {{name}}",
     "activeTemplate": "템플릿: {{name}}",
-    "customPromptActive": "커스텀 프롬프트"
+    "customPromptActive": "커스텀 프롬프트",
+    "scrollToBottom": "맨 아래로 이동"
   },
   "suggestions": {
     "hello": "안녕하세요",
@@ -66,7 +67,12 @@
     "copied": "복사됨",
     "retry": "재시도",
     "regenerate": "재생성",
-    "delete": "삭제"
+    "delete": "삭제",
+    "edit": "수정",
+    "save": "저장",
+    "cancel": "취소",
+    "thumbsUp": "좋은 응답",
+    "thumbsDown": "나쁜 응답"
   },
   "sidebar": {
     "newChat": "새 대화",
@@ -171,6 +177,16 @@
     "submit": "가입하기",
     "demoLogin": "데모 로그인",
     "iamLogin": "IAM 로그인"
+  },
+  "shortcuts": {
+    "title": "키보드 단축키",
+    "newChat": "새 대화",
+    "clearChat": "초기화 / 새 대화",
+    "settings": "설정 토글",
+    "help": "단축키 보기",
+    "send": "메시지 전송",
+    "newLine": "줄바꿈",
+    "cancel": "취소 / 닫기"
   },
   "user": {
     "menu": "사용자 메뉴",

@@ -26,6 +26,7 @@ interface ChatContextValue {
   retryLastMessage: () => Promise<void>
   regenerateMessage: (messageId: string) => Promise<void>
   deleteMessage: (messageId: string) => void
+  editMessage: (messageId: string, newContent: string) => Promise<void>
 
   // Settings
   settings: ChatSettings
@@ -95,7 +96,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  const { messages, isLoading, activeTool, sendMessage, stopGeneration, retryLastMessage, regenerateMessage, deleteMessage } = useChat({
+  const { messages, isLoading, activeTool, sendMessage, stopGeneration, retryLastMessage, regenerateMessage, deleteMessage, editMessage } = useChat({
     sessionId: effectiveSessionId,
     settings,
     userId: userId || 'web-user',
@@ -160,6 +161,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
       retryLastMessage,
       regenerateMessage,
       deleteMessage,
+      editMessage,
       settings,
       updateSettings,
       resetSettings,

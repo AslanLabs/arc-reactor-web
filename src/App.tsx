@@ -6,6 +6,7 @@ import { Header } from './components/layout/Header'
 import { Sidebar } from './components/layout/Sidebar'
 import { ChatArea } from './components/chat/ChatArea'
 import { SettingsPanel } from './components/settings/SettingsPanel'
+import { ShortcutsDialog } from './components/common/ShortcutsDialog'
 import { LoginPage } from './components/auth/LoginPage'
 import { AppsLayout } from './components/apps/AppsLayout'
 import { AppsPage } from './components/apps/AppsPage'
@@ -28,6 +29,7 @@ function ChatLayout({
   const [sidebarOpen, setSidebarOpen] = useState(
     () => window.innerWidth >= 768
   )
+  const [shortcutsOpen, setShortcutsOpen] = useState(false)
 
   // Auto-close sidebar when resizing to mobile
   useEffect(() => {
@@ -42,7 +44,8 @@ function ChatLayout({
   const shortcuts = {
     'n': () => createSession(),
     ',': onToggleSettings,
-    'l': () => createSession(), // Ctrl+L: new chat (clear)
+    'l': () => createSession(),
+    '/': () => setShortcutsOpen(prev => !prev),
   }
 
   useKeyboardShortcuts(shortcuts)
@@ -58,6 +61,7 @@ function ChatLayout({
         <ChatArea onOpenSettings={onOpenSettings} />
       </div>
       <SettingsPanel open={settingsOpen} onClose={onCloseSettings} />
+      <ShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
   )
 }
@@ -81,7 +85,6 @@ function ChatPage() {
 export default function App() {
   const { isAuthRequired, isAuthenticated, isLoading } = useAuth()
 
-  // Show loading while checking auth status
   if (isLoading) {
     return (
       <div className="App-loading">
@@ -90,7 +93,6 @@ export default function App() {
     )
   }
 
-  // Auth is required but user is not authenticated — show login
   if (isAuthRequired && !isAuthenticated) {
     return <LoginPage />
   }

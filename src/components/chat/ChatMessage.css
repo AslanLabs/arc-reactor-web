@@ -135,6 +135,65 @@
   font-size: 0.8rem;
 }
 
+/* Edit form */
+.ChatMessage-editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ChatMessage-editInput {
+  width: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+
+.ChatMessage-editActions {
+  display: flex;
+  gap: 6px;
+}
+
+.ChatMessage-editSave {
+  padding: 4px 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ChatMessage-editSave:hover {
+  opacity: 0.9;
+}
+
+.ChatMessage-editCancel {
+  padding: 4px 12px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ChatMessage-editCancel:hover {
+  background: var(--bg-hover);
+}
+
 @media (max-width: 767px) {
   .ChatMessage-bubble {
     max-width: 90%;

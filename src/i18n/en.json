@@ -51,7 +51,8 @@
     "newConversation": "New conversation",
     "activePersona": "Persona: {{name}}",
     "activeTemplate": "Template: {{name}}",
-    "customPromptActive": "Custom prompt"
+    "customPromptActive": "Custom prompt",
+    "scrollToBottom": "Scroll to bottom"
   },
   "suggestions": {
     "hello": "Hello!",
@@ -66,7 +67,12 @@
     "copied": "Copied",
     "retry": "Retry",
     "regenerate": "Regenerate",
-    "delete": "Delete"
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "thumbsUp": "Good response",
+    "thumbsDown": "Bad response"
   },
   "sidebar": {
     "newChat": "New chat",
@@ -171,6 +177,16 @@
     "submit": "Sign up",
     "demoLogin": "Demo Login",
     "iamLogin": "IAM Login"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "newChat": "New chat",
+    "clearChat": "Clear / New chat",
+    "settings": "Toggle settings",
+    "help": "Show shortcuts",
+    "send": "Send message",
+    "newLine": "New line",
+    "cancel": "Cancel / Close"
   },
   "user": {
     "menu": "User menu",

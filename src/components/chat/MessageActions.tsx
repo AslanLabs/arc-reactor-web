@@ -8,11 +8,13 @@ interface MessageActionsProps {
   onRetry?: () => void
   onRegenerate?: () => void
   onDelete?: () => void
+  onEdit?: () => void
 }
 
-export function MessageActions({ content, role, onRetry, onRegenerate, onDelete }: MessageActionsProps) {
+export function MessageActions({ content, role, onRetry, onRegenerate, onDelete, onEdit }: MessageActionsProps) {
   const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
+  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null)
 
   const handleCopy = () => {
     navigator.clipboard.writeText(content).then(() => {
@@ -30,6 +32,27 @@ export function MessageActions({ content, role, onRetry, onRegenerate, onDelete 
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     })
+  }
+
+  const handleFeedback = (type: 'up' | 'down') => {
+    const newFeedback = feedback === type ? null : type
+    setFeedback(newFeedback)
+    if (newFeedback) {
+      // Fire-and-forget feedback submission
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(localStorage.getItem('arc-reactor-auth-token')
+            ? { 'Authorization': `Bearer ${localStorage.getItem('arc-reactor-auth-token')}` }
+            : {}),
+        },
+        body: JSON.stringify({
+          rating: newFeedback === 'up' ? 'THUMBS_UP' : 'THUMBS_DOWN',
+          response: content,
+        }),
+      }).catch(() => { /* ignore */ })
+    }
   }
 
   return (
@@ -50,12 +73,43 @@ export function MessageActions({ content, role, onRetry, onRegenerate, onDelete 
           </svg>
         )}
       </button>
+      {role === 'user' && onEdit && (
+        <button className="MessageActions-btn" onClick={onEdit} title={t('actions.edit')}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L3.462 11.1a.25.25 0 00-.064.108l-.631 2.208 2.208-.63a.25.25 0 00.108-.064l8.61-8.61a.25.25 0 000-.354l-1.086-1.086z" />
+          </svg>
+        </button>
+      )}
       {role === 'assistant' && onRegenerate && (
         <button className="MessageActions-btn" onClick={onRegenerate} title={t('actions.regenerate')}>
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 3a5 5 0 104.546 2.914.75.75 0 011.36-.636A6.5 6.5 0 118 1.5v-1a.5.5 0 01.854-.354l2 2a.5.5 0 010 .708l-2 2A.5.5 0 018 4.5V3z" />
           </svg>
         </button>
+      )}
+      {role === 'assistant' && (
+        <>
+          <button
+            className={`MessageActions-btn ${feedback === 'up' ? 'MessageActions-btn--active' : ''}`}
+            onClick={() => handleFeedback('up')}
+            title={t('actions.thumbsUp')}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8.834.066C7.494-.087 6.5 1.048 6.5 2.25v.5c0 1.329-.647 2.55-1.737 3.3L4 6.56v6.5l.16.12A6.5 6.5 0 007.5 14h4a1.5 1.5 0 001.451-1.114l1.4-5.363A1.5 1.5 0 0012.9 5.75H9.5V2.25a1.252 1.252 0 00-.666-1.184z" />
+              <path d="M2.5 14V7h-1a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h1z" />
+            </svg>
+          </button>
+          <button
+            className={`MessageActions-btn ${feedback === 'down' ? 'MessageActions-btn--active' : ''}`}
+            onClick={() => handleFeedback('down')}
+            title={t('actions.thumbsDown')}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style={{ transform: 'rotate(180deg)' }}>
+              <path d="M8.834.066C7.494-.087 6.5 1.048 6.5 2.25v.5c0 1.329-.647 2.55-1.737 3.3L4 6.56v6.5l.16.12A6.5 6.5 0 007.5 14h4a1.5 1.5 0 001.451-1.114l1.4-5.363A1.5 1.5 0 0012.9 5.75H9.5V2.25a1.252 1.252 0 00-.666-1.184z" />
+              <path d="M2.5 14V7h-1a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h1z" />
+            </svg>
+          </button>
+        </>
       )}
       {onRetry && (
         <button className="MessageActions-btn" onClick={onRetry} title={t('actions.retry')}>

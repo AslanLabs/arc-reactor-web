@@ -287,6 +287,20 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
     setMessages(prev => prev.filter(m => m.id !== messageId))
   }
 
+  const editMessage = async (messageId: string, newContent: string) => {
+    const idx = messages.findIndex(m => m.id === messageId)
+    if (idx < 0 || messages[idx].role !== 'user') return
+
+    // Update user message content and remove all subsequent messages
+    setMessages(prev => {
+      const updated = prev.slice(0, idx)
+      updated.push({ ...prev[idx], content: newContent.trim() })
+      return updated
+    })
+    await new Promise(r => setTimeout(r, 0))
+    await sendMessageInternal(newContent.trim(), undefined, true)
+  }
+
   return {
     messages,
     isLoading,
@@ -296,5 +310,6 @@ export function useChat({ sessionId, settings, userId, initialMessages = [], onM
     retryLastMessage,
     regenerateMessage,
     deleteMessage,
+    editMessage,
   }
 }

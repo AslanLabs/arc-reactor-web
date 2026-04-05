@@ -5,6 +5,14 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
+  position: relative;
+}
+
+.ChatArea-topBar {
+  display: flex;
+  align-items: center;
+  padding: 6px 20px;
+  border-bottom: 1px solid var(--border);
 }
 
 .ChatArea-messages {
@@ -17,9 +25,38 @@
   scroll-behavior: smooth;
 }
 
+.ChatArea-scrollBtn {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s, color 0.15s;
+  z-index: 10;
+}
+
+.ChatArea-scrollBtn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
 @media (max-width: 767px) {
   .ChatArea-messages {
     padding: 12px;
     gap: 8px;
+  }
+
+  .ChatArea-topBar {
+    padding: 6px 12px;
   }
 }

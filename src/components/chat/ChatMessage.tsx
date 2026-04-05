@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ChatMessage as ChatMessageType } from '../../types/chat'
 import { MarkdownRenderer } from '../common/MarkdownRenderer'
 import { MessageActions } from './MessageActions'
@@ -12,11 +14,43 @@ interface ChatMessageProps {
   onRetry?: () => void
   onRegenerate?: () => void
   onDelete?: () => void
+  onEdit?: (content: string) => void
 }
 
 export function ChatMessage({
-  message, isLast, isLoading, showMetadata, onRetry, onRegenerate, onDelete,
+  message, isLast, isLoading, showMetadata, onRetry, onRegenerate, onDelete, onEdit,
 }: ChatMessageProps) {
+  const { t } = useTranslation()
+  const [editing, setEditing] = useState(false)
+  const [editContent, setEditContent] = useState(message.content)
+  const editRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    if (editing && editRef.current) {
+      editRef.current.focus()
+      editRef.current.style.height = 'auto'
+      editRef.current.style.height = editRef.current.scrollHeight + 'px'
+    }
+  }, [editing])
+
+  const handleEditSubmit = () => {
+    if (editContent.trim() && editContent.trim() !== message.content) {
+      onEdit?.(editContent.trim())
+    }
+    setEditing(false)
+  }
+
+  const handleEditKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleEditSubmit()
+    }
+    if (e.key === 'Escape') {
+      setEditContent(message.content)
+      setEditing(false)
+    }
+  }
+
   const showPlaceholder = isLoading && isLast && message.role === 'assistant' && !message.content
 
   return (
@@ -30,7 +64,29 @@ export function ChatMessage({
           </div>
         )}
         <div className="ChatMessage-content">
-          {message.error ? (
+          {editing ? (
+            <div className="ChatMessage-editForm">
+              <textarea
+                ref={editRef}
+                className="ChatMessage-editInput"
+                value={editContent}
+                onChange={e => {
+                  setEditContent(e.target.value)
+                  e.target.style.height = 'auto'
+                  e.target.style.height = e.target.scrollHeight + 'px'
+                }}
+                onKeyDown={handleEditKeyDown}
+              />
+              <div className="ChatMessage-editActions">
+                <button className="ChatMessage-editSave" onClick={handleEditSubmit}>
+                  {t('actions.save')}
+                </button>
+                <button className="ChatMessage-editCancel" onClick={() => { setEditContent(message.content); setEditing(false) }}>
+                  {t('actions.cancel')}
+                </button>
+              </div>
+            </div>
+          ) : message.error ? (
             <span className="ChatMessage-errorText">{message.content}</span>
           ) : showPlaceholder ? (
             <span className="ChatMessage-typingIndicator">
@@ -60,13 +116,14 @@ export function ChatMessage({
             {formatDuration(message.durationMs)}
           </div>
         )}
-        {message.content && !showPlaceholder && (
+        {message.content && !showPlaceholder && !editing && (
           <MessageActions
             content={message.content}
             role={message.role}
             onRetry={onRetry}
             onRegenerate={onRegenerate}
             onDelete={onDelete}
+            onEdit={onEdit ? () => { setEditContent(message.content); setEditing(true) } : undefined}
           />
         )}
       </div>

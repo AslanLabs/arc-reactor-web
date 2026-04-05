@@ -33,6 +33,11 @@
   border-color: var(--success);
 }
 
+.MessageActions-btn--active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 .MessageActions-btn--delete:hover {
   color: var(--error);
   border-color: var(--error);
