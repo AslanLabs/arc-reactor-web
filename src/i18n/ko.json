@@ -164,6 +164,10 @@
     "demoLogin": "데모 로그인",
     "iamLogin": "IAM 로그인"
   },
+  "user": {
+    "menu": "사용자 메뉴",
+    "logout": "로그아웃"
+  },
   "mcp": {
     "loading": "불러오는 중...",
     "loadError": "MCP 서버 목록을 불러올 수 없습니다",

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useChatContext } from '../../context/ChatContext'
+import { UserMenu } from './UserMenu'
 import './Header.css'
 
 interface HeaderProps {
@@ -45,6 +46,7 @@ export function Header({ onToggleSidebar, onOpenSettings }: HeaderProps) {
         >
           {settings.darkMode ? '\u2600\uFE0F' : '\uD83C\uDF19'}
         </button>
+        <UserMenu />
       </div>
     </header>
   )

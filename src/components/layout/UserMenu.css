@@ -1,0 +1,129 @@
+.UserMenu {
+  position: relative;
+}
+
+.UserMenu-trigger {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.UserMenu-trigger:hover {
+  border-color: var(--accent);
+}
+
+.UserMenu-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.UserMenu-avatar--large {
+  width: 40px;
+  height: 40px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.UserMenu-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 0;
+  box-shadow: var(--shadow-sm);
+  z-index: 100;
+  animation: userMenuFadeIn 0.12s ease-out;
+}
+
+@keyframes userMenuFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.UserMenu-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.UserMenu-info {
+  min-width: 0;
+}
+
+.UserMenu-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.UserMenu-email {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.UserMenu-role {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 1px 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 10px;
+  background: var(--tool-badge-bg);
+  color: var(--tool-badge-color);
+}
+
+.UserMenu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.UserMenu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.UserMenu-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.UserMenu-item--danger:hover {
+  color: var(--error);
+}
