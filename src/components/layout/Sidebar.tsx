@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useChatContext } from '../../context/ChatContext'
+import { useAuth } from '../../context/AuthContext'
 import { formatRelativeTime } from '../../utils/formatters'
 import { exportAsJson, exportAsMarkdown } from '../../utils/export'
 import './Sidebar.css'
@@ -12,6 +13,7 @@ interface SidebarProps {
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   const { t } = useTranslation()
+  const { user, logout } = useAuth()
   const { sessions, activeSessionId, createSession, switchSession, deleteSession } = useChatContext()
   const [exportMenuId, setExportMenuId] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -133,6 +135,31 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             </div>
           ))}
         </nav>
+        {user && (
+          <div className="Sidebar-footer">
+            <div className="Sidebar-user">
+              <span className="Sidebar-userAvatar">
+                {user.name.split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2)}
+              </span>
+              <div className="Sidebar-userInfo">
+                <div className="Sidebar-userName">{user.name}</div>
+                <div className="Sidebar-userEmail">{user.email}</div>
+              </div>
+              <button
+                className="Sidebar-logoutBtn"
+                onClick={logout}
+                aria-label={t('user.logout')}
+                title={t('user.logout')}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
       </aside>
     </>
   )
